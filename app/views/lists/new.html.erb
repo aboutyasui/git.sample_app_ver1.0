@@ -1,0 +1,26 @@
+<h1>新規投稿</h1>
+<% if @list.errors.any? %><!--errorsは、any? と組み合わせることで、エラーが発生しているかどうかを判定できます。-->
+  <%= @list.errors.count %>件のエラーが発生しました
+  <ul>
+    <% @list.errors.full_messages.each do |message| %><!--errorsは、full_messagesと組み合わせることで、エラーの内容を出力できます。-->
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<!-- form_with部分 --><!--簡単にフォームを生成することができるヘルパー-->
+<%= form_with model: @list,url:lists_path,method: :post do |f| %><!--フォームからデータを送信した後にデータベースへ保存する必要がある-->
+<!--@listの中身は、コントローラ(lists_controller.rb)で代入した内容がそのまま入っています。-->
+
+  <h4>タイトル</h4>
+  <%= f.text_field :title %><!--タイトルを入力する部分を作成-->
+
+  <h4>本文</h4>
+  <%= f.text_area :body %><!--本文の部分の記述-->
+
+  <h4>画像</h4><!-- 画像検索機能を追加 -->
+  <%= f.file_field :image, accept: "image/*" %>
+  <!--accept: "image/*"を使い、画像ファイルしか投稿できないようする-->
+
+  <%= f.submit '投稿' %><!--投稿の部分の記述-->
+<% end %>

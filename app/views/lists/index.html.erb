@@ -1,0 +1,21 @@
+<div class="list-wrap">
+<% @lists.each do |list| %>
+<!--@listsの中身は、コントローラ(lists_controller.rb)で代入した内容がそのまま入っています。-->
+<!--eachメソッドは、配列やハッシュがもつ要素を順番に取得して処理を実行したい時に使用しました。今回はListレコードの数だけ繰り返し処理を行います-->
+<!--each文に「＝」を付けた場合、@listsそのものが出力されてしまう-->
+  <div class="list-box">
+    <% if list.image.attached? %><!--「.attached?」はimageが存在するかを確認するメソッド-->
+      <%= image_tag list.image, size: "200x200" %><!--listに紐ついているimageをimage_tagに渡すことで画像を表示することができます。-->
+      <!--オプションとしてsizeを指定することで画像サイズを変更することができる-->
+    <% else %>
+      <%= image_tag 'no_image', size: "200x200" %><!--画像が保存されていない場合、no_imageが表示される-->
+    <% end %>
+    <div class="list-comment">
+      <span class="list-body"><%= list.body %></span><!--「list.body」はListモデルのbodyカラムに入っているデータを呼び出している記述-->
+      <span class="list-title"><%=link_to list.title, list_path(list.id) %></span><!--リンク先URLは、/lists/:idの「:idに該当する部分」を指定します。-->
+      <!--「SPAN」とは、単体では特に意味を持たないタグですが、<span>～</span>で囲った部分をインライン要素としてグループ化することができるタグです。-->
+      <!--各レコードの内容は、listという変数に格納されます。ここでは、list.titleと記述することで、投稿のタイトルが表示されます。-->
+    </div>
+  </div>
+<% end %>
+</div>

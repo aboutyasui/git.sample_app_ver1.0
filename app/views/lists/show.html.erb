@@ -1,0 +1,18 @@
+<h2>タイトル</h2><!--タイトル入力枠の作成-->
+<p><%= @list.title %></p>
+
+<h2>本文</h2><!--本文入力枠の作成-->
+<p><%= @list.body %></p>
+
+<h2>画像</h2><!--画像入力枠の作成-->
+<% if @list.image.attached? %>
+  <%= image_tag @list.image, size: "300x300" %>
+<% else %>
+  <%= image_tag 'no_image', size: "300x300" %>
+<% end %>
+
+<!--編集画面へ遷移するリンクを設定-->
+<%= link_to "編集", edit_list_path(@list.id) %>
+<!--削除画面へ遷移するリンクを設定-->
+<%= link_to "削除", list_path(@list.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<!--data-confirmを用いて確認ダイアログも表示されるように設定-->
